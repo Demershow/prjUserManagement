@@ -206,7 +206,7 @@
                 <div class="box-body">
                   <div class="form-group">
                     <label for="exampleInputName">Nome</label>
-                    <input type="text" class="form-control" id="exampleInputName" placeholder="Digite o nome do usuário"
+                    <input type="text" required class="form-control" id="exampleInputName" placeholder="Digite o nome do usuário"
                       name="name">
                   </div>
                   <div class="form-group">
@@ -479,12 +479,12 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">E-mail</label>
-                    <input type="email" class="form-control" id="exampleInputEmail" placeholder="Digite o e-mail"
+                    <input type="email" required class="form-control" id="exampleInputEmail" placeholder="Digite o e-mail"
                       name="email">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Senha</label>
-                    <input type="password" class="form-control" id="exampleInputPassword" placeholder="Crie uma senha"
+                    <input type="password" required class="form-control" id="exampleInputPassword" placeholder="Crie uma senha"
                       name="password">
                   </div>
                   <div class="form-group">
@@ -523,6 +523,8 @@
     </footer>
 
   </div>
+
+  <script src="./classes/Utils.js"></script>
   <script src="models/user.js"></script>
   <script src="controller/userController.js"></script>
   <script src="index.js"></script>
