@@ -1,6 +1,6 @@
 class UserController {
 
-    constructor(formId, tableId) {
+    constructor (formId, tableId){
 
         this.formEl = document.getElementById(formId);
         this.tableEl = document.getElementById(tableId);
@@ -9,99 +9,115 @@ class UserController {
 
     }
 
-    onSubmit() {
+    onSubmit(){
 
         this.formEl.addEventListener("submit", event => {
 
             event.preventDefault();
 
+            let btn = this.formEl.querySelector("[type=submit]");
+
+            btn.disabled = true;
+
             let values = this.getValues();
 
             this.getPhoto().then(
-                 (content)=> {
-
+                (content) => {
 
                     values.photo = content;
 
                     this.addLine(values);
 
-                },
-                 (e) => {
-                    console.error
+                    this.formEl.reset();
+
+                    btn.disabled = false;
+
+                }, 
+                (e) => {
+                    console.error(e)
                 }
             );
-
+        
         });
 
     }
 
-    getPhoto(formEl) {
+    getPhoto(){
+
         return new Promise((resolve, reject) => {
+
             let fileReader = new FileReader();
 
-            let elements = [...formEl.elements].filter(item => {
+            let elements = [...this.formEl.elements].filter(item => {
+
                 if (item.name === 'photo') {
                     return item;
                 }
+
             });
 
             let file = elements[0].files[0];
 
             fileReader.onload = () => {
+
                 resolve(fileReader.result);
+
             };
 
             fileReader.onerror = (e) => {
-                reject(e);
-            }
 
-            if (file) {
+                reject(e);
+
+            };
+
+            if(file) {
                 fileReader.readAsDataURL(file);
             } else {
                 resolve('dist/img/boxed-bg.jpg');
             }
+
         });
+
     }
 
-
-    getValues() {
+    getValues(){
 
         let user = {};
 
-        [...this.formEl.elements].forEach(function (field, index) {
+        [...this.formEl.elements].forEach(function(field, index){
 
             if (field.name === "gender") {
-
+    
                 if (field.checked) {
                     user[field.name] = field.value
                 }
-
-            } else if(field.name =="admin") {
+    
+            } else if(field.name == "admin") {
 
                 user[field.name] = field.checked;
 
-            } else{
-
+            } else {
+    
                 user[field.name] = field.value
-
+    
             }
-
+    
         });
-
+    
         return new User(
-            user.name,
-            user.gender,
-            user.birth,
-            user.country,
-            user.email,
-            user.password,
-            user.photo,
+            user.name, 
+            user.gender, 
+            user.birth, 
+            user.country, 
+            user.email, 
+            user.password, 
+            user.photo, 
             user.admin
         );
 
     }
 
-
+    
     addLine(dataUser) {
 
         let tr = document.createElement('tr');
@@ -111,8 +127,8 @@ class UserController {
                 <td><img src=${dataUser.photo} class="img-circle img-sm"></td>
                 <td>${dataUser.name}</td>
                 <td>${dataUser.email}</td>
-                <td>${(dataUser.admin) ? 'sim' : 'não'}</td>
-                <td>${dataUser.birth}</td>
+                <td>${(dataUser.admin) ? 'Sim' : 'Não'}</td>
+                <td>${dataUser.register}</td>
                 <td>
                     <button type="button" class="btn btn-primary btn-xs btn-flat">Editar</button>
                     <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
@@ -123,6 +139,4 @@ class UserController {
         this.tableEl.appendChild(tr);
 
     }
-
-
 }
