@@ -1,5 +1,8 @@
 class UserController {
 
+
+
+    //Método construtor
     constructor(formId, tableId) {
 
         this.formEl = document.getElementById(formId);
@@ -9,6 +12,8 @@ class UserController {
 
     }
 
+
+    //Método no momento do click para a validação
     onSubmit() {
 
         this.formEl.addEventListener('submit', (event) => {
@@ -20,6 +25,8 @@ class UserController {
 
     }
 
+
+    
     getValues() {
 
         let user = {};
@@ -40,7 +47,7 @@ class UserController {
 
         });
 
-
+        //Retorno do usuario com os dados inseridos
         return new User(
             user.name,
             user.gender,
@@ -55,6 +62,8 @@ class UserController {
 
     }
 
+
+    //Método para adicionar a linha inserida ao sistema
     addLine(dataUser,) {
 
         this.tableEl.innerHTML = `
